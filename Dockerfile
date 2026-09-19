@@ -1,8 +1,11 @@
-FROM node:20.9.0-bookworm-slim@sha256:7059cd1a44e9694e6df05408fed5d56b710b2f45a8e8806b178d8c31653a48cc
+FROM node:26-bookworm-slim
 
 WORKDIR /app
 
 ENV NODE_ENV=production
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev \
